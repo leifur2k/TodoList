@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Todo List</string>
+    <string name="edit_text_enter_note">Enter note:</string>
+    <string name="radio_button_low">Low</string>
+    <string name="radio_button_medium">Medium</string>
+    <string name="radio_button_high">High</string>
+    <string name="button_save">SAVE</string>
+    <string name="error">Введите Текст!</string>
+</resources>
