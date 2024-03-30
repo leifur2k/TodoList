@@ -15,6 +15,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     private ArrayList<Note> notes = new ArrayList<>();
 
+    private OnNoteClickListener onNoteClickListener;
+
+    public void setOnNoteClickListener(OnNoteClickListener onNoteClickListener){
+        this.onNoteClickListener = onNoteClickListener;
+    }
+
     public void setNotes(ArrayList<Note> notes) {
         this.notes = notes;
         notifyDataSetChanged();
@@ -23,9 +29,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     @NonNull
     @Override
     public NotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
 
-        return new NotesViewHolder(view);
+        return new NotesViewHolder(itemView);
     }
 
     @Override
@@ -48,6 +54,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         int color = ContextCompat.getColor(holder.itemView.getContext(), colorResId);
         holder.textViewNote.setBackgroundColor(color);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onNoteClickListener != null)
+                    onNoteClickListener.onNoteClick(note);
+            }
+        });
+
     }
 
     @Override
@@ -63,6 +77,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             textViewNote = itemView.findViewById(R.id.textViewNote);
 
         }
+    }
+
+    interface OnNoteClickListener {
+        void onNoteClick(Note note);
     }
 
 }
